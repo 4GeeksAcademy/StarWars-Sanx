@@ -33,42 +33,42 @@ export const Home = () => {
     const getActiveCategoryData = () => {
         const categoryMap = {
             people: {
-                title: "Characters",
+                title: "PERSONAJES //",
                 data: store.people,
                 pagination: store.pagination.people,
                 descriptionKey: "gender", // Ejemplo, puedes cambiarlo
                 type: "people" // Importante para la Card
             },
             films: {
-                title: "Films",
+                title: "PELÍCULAS //",
                 data: store.films,
                 pagination: store.pagination.films,
                 descriptionKey: "director", // Ejemplo
                 type: "films"
             },
             planets: {
-                title: "Planets",
+                title: "PLANETAS //",
                 data: store.planets,
                 pagination: store.pagination.planets,
                 descriptionKey: "population", // Ejemplo
                 type: "planets"
             },
             vehicles: {
-                title: "Vehicles",
+                title: "VEHÍCULOS //",
                 data: store.vehicles,
                 pagination: store.pagination.vehicles,
                 descriptionKey: "model",
                 type: "vehicles"
             },
             species: {
-                title: "Species",
+                title: "ESPECIES //",
                 data: store.species,
                 pagination: store.pagination.species,
                 descriptionKey: "classification",
                 type: "species"
             },
             starships: {
-                title: "Starships",
+                title: "NAVES //",
                 data: store.starships,
                 pagination: store.pagination.starships,
                 descriptionKey: "model",
@@ -93,9 +93,9 @@ export const Home = () => {
 
             <div className="row">
                 {/* Columna de la Barra Lateral */}
-                <div className="col-md-3 bg-secondary text-light p-3">
+                <div className="col-md-2 bg-secondary text-light p-3">
                     <div className="d-flex flex-column h-100">
-                        <h4 className="border-bottom border-light pb-2 mb-3">BROWSE DATABANK //</h4>
+                        <h4 className="border-bottom border-light pb-2 mb-3">BÚSQUEDA //</h4>
                         <ul className="nav flex-column">
                             <li className="nav-item">
                                 <a
@@ -103,7 +103,7 @@ export const Home = () => {
                                     href="#"
                                     onClick={() => actions.changeActiveCategory("people")}
                                 >
-                                    CHARACTERS
+                                    PERSONAJES
                                 </a>
                             </li>
                             <li className="nav-item">
@@ -112,7 +112,7 @@ export const Home = () => {
                                     href="#"
                                     onClick={() => actions.changeActiveCategory("vehicles")}
                                 >
-                                    VEHICLES
+                                    VEHÍCULOS
                                 </a>
                             </li>
                             <li className="nav-item">
@@ -121,7 +121,7 @@ export const Home = () => {
                                     href="#"
                                     onClick={() => actions.changeActiveCategory("planets")}
                                 >
-                                    PLANETS
+                                    PLANETAS
                                 </a>
                             </li>
                             <li className="nav-item">
@@ -130,7 +130,7 @@ export const Home = () => {
                                     href="#"
                                     onClick={() => actions.changeActiveCategory("species")}
                                 >
-                                    SPECIES
+                                    ESPECIES
                                 </a>
                             </li>
                             <li className="nav-item">
@@ -139,7 +139,7 @@ export const Home = () => {
                                     href="#"
                                     onClick={() => actions.changeActiveCategory("starships")}
                                 >
-                                    STARSHIPS
+                                    NAVES
                                 </a>
                             </li>
                             <li className="nav-item">
@@ -148,16 +148,7 @@ export const Home = () => {
                                     href="#"
                                     onClick={() => actions.changeActiveCategory("films")}
                                 >
-                                    FILMS
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a
-                                    className={`nav-link ${store.activeCategory === "all" || store.activeCategory === "people" ? "text-warning active" : "text-light"}`}
-                                    href="#"
-                                    onClick={() => actions.changeActiveCategory("people")} // "All" sigue mostrando la primera página de Characters
-                                >
-                                    ALL
+                                    PELÍCULAS
                                 </a>
                             </li>
                         </ul>
@@ -165,8 +156,8 @@ export const Home = () => {
                 </div>
 
                 {/* Columna del Contenido Principal */}
-                <div className="col-md-9 p-3">
-                    <h1 className="text-warning mb-4">{currentCategory.title}</h1>
+                <div className="col-md-9 p-3 ps-5 pt-4">
+                    <h1 className="text-warning mt-0 mb-4">{currentCategory.title}</h1>
                     <div className="d-flex flex-wrap justify-content-center">
                         {isLoadingCurrentCategory ? (
                             <p className="text-center w-100 text-light">Cargando {currentCategory.title.toLowerCase()}...</p>

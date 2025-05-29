@@ -30,7 +30,7 @@ export const initialStore = () => {
 
 
 export const getActions = (getState, dispatch) => {
-  const ITEMS_PER_PAGE = 9; 
+  const ITEMS_PER_PAGE = 8; 
 
   const fetchData = async (dispatch, category, endpoint, setLoadingType, setDataType, setPaginationType, pageToFetch) => {
     
@@ -57,10 +57,12 @@ export const getActions = (getState, dispatch) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log(`--- DEBUG: Datos recibidos de ${category}:`, data);
+      console.log(`--- DEBUG: Datos recibidos de ${category} (objeto 'data'):`, data);
       console.log(`--- DEBUG: URL de la petición:`, url);
 
       const items = data.results || data.result || [];
+      console.log(`--- DEBUG: Items extraídos para ${category}:`, items.length);
+
 
       if (category === "films") {
         totalRecords = 9;
@@ -70,6 +72,8 @@ export const getActions = (getState, dispatch) => {
         totalPages = Math.ceil(totalRecords / ITEMS_PER_PAGE);
       }
       if (totalRecords > 0 && totalPages === 0) totalPages = 1;
+
+      console.log(`--- DEBUG: Para ${category} - totalRecords: ${totalRecords}, totalPages: ${totalPages}`);
 
       dispatch({ type: setDataType, payload: items });
     
@@ -178,13 +182,26 @@ export default function storeReducer(store, action = {}) {
     case 'set_isLoadingStarships': return { ...store, isLoadingStarships: action.payload };
     case 'set_isLoadingFilms': return { ...store, isLoadingFilms: action.payload };
 
-    // ¡NUEVOS CASOS PARA LOS ESTADOS DE PAGINACIÓN!
     case 'set_pagination_people': return { ...store, pagination: { ...store.pagination, people: action.payload } };
     case 'set_pagination_vehicles': return { ...store, pagination: { ...store.pagination, vehicles: action.payload } };
     case 'set_pagination_planets': return { ...store, pagination: { ...store.pagination, planets: action.payload } };
     case 'set_pagination_species': return { ...store, pagination: { ...store.pagination, species: action.payload } };
     case 'set_pagination_starships': return { ...store, pagination: { ...store.pagination, starships: action.payload } };
     case 'set_pagination_films': return { ...store, pagination: { ...store.pagination, films: action.payload } };
+
+    case 'add_favorite':
+            if (!store.favorites.some(fav => fav.uid === action.payload.uid && fav.type === action.payload.type)) {
+                return { ...store, favorites: [...store.favorites, action.payload] };
+            }
+            return store; 
+
+        case 'remove_favorite':
+            return {
+                ...store,
+                favorites: store.favorites.filter(
+                    (fav) => !(fav.uid === action.payload.uid && fav.type === action.payload.type)
+                ),
+            };
     
     default:
       console.error("Unknown action.type:", action.type, "payload:", action.payload);

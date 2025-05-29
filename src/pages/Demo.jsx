@@ -36,7 +36,7 @@ export const Demo = () => {
       <br />
 
       <Link to="/">
-        <button className="btn btn-primary">Back home</button>
+        <button className="btn btn-warning rounded-0">Back home</button>
       </Link>
     </div>
   );
